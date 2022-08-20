@@ -1,0 +1,28 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+ENTITY A_74ALS138_1_of_8_decoder IS
+
+PORT (E : IN std_logic_vector(1 TO 3);
+    A : IN std_logic_vector(2 DOWNTO 0);
+    O : OUT std_logic_vector(0 TO 7));
+    
+END A_74ALS138_1_of_8_decoder;
+
+ARCHITECTURE decoder_logic OF A_74ALS138_1_of_8_decoder IS
+SIGNAL EA: std_logic_vector(5 DOWNTO 0);
+BEGIN
+
+EA <= E & A;
+WITH EA SELECT
+  O <= "01111111" WHEN "001000",
+      "10111111" WHEN "001001",
+      "11011111" WHEN "001010",
+      "11101111" WHEN "001011",
+      "11110111" WHEN "001100",
+      "11111011" WHEN "001101",
+      "11111101" WHEN "001110",
+      "11111110" WHEN "001111",
+      "11111111" WHEN OTHERS;
+      
+END decoder_logic;
